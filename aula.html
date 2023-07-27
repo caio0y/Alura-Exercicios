@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<canvas width="600" height="400"></canvas>
+
+<script>
+    function texto(txt,x,y){
+        pincel.font='20px Georgia';
+        pincel.fillStyle='#000000';
+        pincel.fillText(txt,x,y);
+    }
+    function placar(){
+        pincel.strokeRect(3,3,200,50);
+        texto('Placar: '+pontos+' pontos',10,23)
+        if (erros>0){
+            texto(erros+' erros',10,43)
+        }
+    }
+    function fundo() {
+        pincel.fillStyle='#A9D5FE';
+        pincel.fillRect(0, 0, 600, 400);
+
+        pincel.fillStyle='#DDD8BB';
+        pincel.beginPath();
+        pincel.moveTo(0,400);
+        pincel.lineTo(0,270);
+        pincel.lineTo(100,130);
+        pincel.lineTo(230,270);
+        pincel.lineTo(300,180);
+        pincel.lineTo(380,300);
+        pincel.lineTo(530,110);
+        pincel.lineTo(600,210);
+        pincel.lineTo(600,400);
+        pincel.fill();
+
+        pincel.fillStyle='#B2AD95';
+        pincel.beginPath();
+        pincel.moveTo(100,130);
+        pincel.lineTo(230,270);
+        pincel.lineTo(190,310);
+        pincel.fill();
+
+        pincel.beginPath();
+        pincel.moveTo(300,180);
+        pincel.lineTo(380,300);
+        pincel.lineTo(355,325);
+        pincel.fill();
+
+        pincel.beginPath();
+        pincel.moveTo(530,110);
+        pincel.lineTo(600,210);
+        pincel.lineTo(600,215);
+        pincel.lineTo(600,250);
+        pincel.fill();
+
+        placar()
+    }
+    function circulo(x,y,r,cor) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x,y,r,0,2*Math.PI);
+        pincel.fill();
+    }
+
+    function clean() {
+        pincel.clearRect(0, 0, 600, 400);
+        fundo()
+    }
+
+    function alvo(x,y) {
+        circulo(x,y,r+20,'red');
+        circulo(x,y,r+10,'white');
+        circulo(x,y,r,'red');
+    }
+
+    function random(max) {
+        return Math.floor(Math.random()*max);
+    }
+
+    function atualiza() {
+        clean();
+        x = random(600);
+        y = random(400);
+        alvo(x, y);
+    }
+    function tiro(evento){
+        var xx = evento.pageX - tela.offsetLeft
+        var yy = evento.pageY - tela.offsetTop
+        if ((xx>=x-r)
+                &&(xx<=x+r)
+                &&(yy>=y-r)
+                &&(yy<=y+r)){
+            pontos=pontos+acerto1
+        } else if ((xx>=x-r-10)
+                    &&(xx<=x+r+10)
+                    &&(yy>=y-r-10)
+                    &&(yy<=y+r+10)) {
+            pontos=pontos+acerto2
+        } else if ((xx>=x-r-20)
+                    &&(xx<=x+r+20)
+                    &&(yy>=y-r-20)
+                    &&(yy<=y+r+20)) {
+            pontos=pontos+acerto3
+        } else {
+            pontos=pontos+fora
+            erros++
+        }
+    }
+
+    //----------
+    var tela = document.querySelector('canvas')
+    var pincel = tela.getContext('2d')
+
+    var pontos = 0
+    var erros = 0
+    var acerto1 = 200
+    var acerto2 = 100
+    var acerto3 = 50
+    var fora = -10
+
+    var x = 300
+    var y = 200
+    var r = 10
+    
+    fundo()
+    texto('VAI!',280,180)
+
+    setInterval(atualiza, 1000);
+    
+    tela.onclick=tiro
+
+
+</script>

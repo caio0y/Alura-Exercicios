@@ -1,0 +1,45 @@
+<meta charset="UTF-8">
+<script>
+    // área para funções
+    function br() {
+        document.write("<br>");
+    }
+    function print(text){
+        document.write(text);
+        br();
+    }
+    function printTitulo(titulo){
+        print("<h2>"+titulo+"</h2><hr>");
+    }
+    function random(n) {
+        return Math.round(Math.random()*n);
+    }
+ 
+    // ---
+    printTitulo("adivinha")
+    // ---
+    var max = NaN;
+    while(isNaN(max)) {
+        max = parseInt(prompt("Qual valor máximo?"));    
+    }
+    var numeroAleatorio = random(max);
+    var chute = parseInt(prompt("Chute um número de 0 a "+max+"!"));
+    var tentativa = 0;
+    var teste = true;
+    while(teste){
+        tentativa++;
+        if (chute==numeroAleatorio) {
+            print("É "+numeroAleatorio+"! Você acertou na "+tentativa+"ª tentativa!");
+            teste = false;
+        } else if (chute>numeroAleatorio) {
+                chute = parseInt(prompt("Você chutou alto ("+chute+"), tente novamente."));
+        } else {
+                chute = parseInt(prompt("Você chutou baixo ("+chute+"), tente novamente."));
+        }
+    }
+
+    
+    
+
+
+</script>

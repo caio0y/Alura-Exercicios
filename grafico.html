@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+	function cor(color) {
+		pincel.fillStyle = color;
+	}
+	function ret(xi,yi,w,h,c){
+		cor(c);
+		pincel.fillRect(xi,yi,w,h);
+	}
+	function retC(xi,yi,w,h,c){
+		ret(xi,yi,w,h,c);
+		pincel.strokeStyle ='black';
+		pincel.strokeRect(xi,yi,w,h);
+	}
+	function comeca(){
+		pincel.beginPath();
+	}
+	function origem(x,y,c){
+		comeca();
+		cor(c);
+		pincel.moveTo(x,y);
+	}
+	function linha(x,y){
+		pincel.lineTo(x,y);
+	}
+	function preenche(){
+		pincel.fill();
+	}
+	function arco(x,y,d,c){
+		comeca();
+		cor(c);
+		pincel.arc(x,y,d,0,2*3.14);
+		preenche();
+	}
+	function texto(texto,x,y){
+		pincel.font='15px Georgia';
+		cor('black');
+		pincel.fillText(texto,x,y);
+	}
+	function barra(x,y,serie,cores,txt) {
+		texto(txt,x+5,y-10)
+		for(var i=0;i<serie.length;i++){
+			retC(x,y,50,serie[i],cores[i])
+			y = y + serie[i];
+		}
+	}
+
+	//---
+	var tela = document.querySelector('canvas');
+	var pincel = tela.getContext('2d');
+	retC(0,0,600,400,'#F7F7F7');
+	//---
+
+	var nav15 = [50,25,20,5]
+	var nav16 = [65,20,13,2]
+	var cores = ['blue','green','yellow','red']
+
+	barra(50,50,nav15,cores,'2015');
+	barra(150,50,nav16,cores,'2016');
+
+</script>

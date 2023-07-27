@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+	function cor(color) {
+		pincel.fillStyle = color;
+	}
+	function ret(x,y,w,h,c){
+		cor(c);
+		pincel.fillRect(x,y,w,h);
+	}
+	function retC(x,y,w,h,c){
+		ret(x,y,w,h,c);
+		pincel.strokeStyle ='black';
+		pincel.strokeRect(x,y,w,h);
+	}
+	function comeca(){
+		pincel.beginPath();
+	}
+	function origem(x,y,c){
+		comeca();
+		cor(c);
+		pincel.moveTo(x,y);
+	}
+	function linha(x,y){
+		pincel.lineTo(x,y);
+	}
+	function preenche(){
+		pincel.fill();
+	}
+	function arco(x,y,d,c){
+		comeca();
+		cor(c);
+		pincel.arc(x,y,d,0,2*3.14);
+		preenche();
+	}
+	function flor(x,y,d,c1,c2,c3,c4,c5){
+		arco(x,y,d,c1);
+		arco(x,y-d-d,d,c2);
+		arco(x,y+d+d,d,c3);
+		arco(x+d+d,y,d,c4);
+		arco(x-d-d,y,d,c5);
+	}
+
+	//----
+
+	var tela = document.querySelector('canvas');
+	var pincel = tela.getContext('2d');
+	
+	retC(0,0,600,400,'#EBEBEB')
+
+	flor(300,200,10,'brown','white');
+	flor(150,100,10,'brown','white');
+	flor(450,100,10,'brown','white');
+	flor(450,300,10,'brown','white');
+	flor(150,300,10,'brown','white');
+
+
+</script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    var x = 300;
+    var y = 200;
+    var r = 10;
+    var cor = 'navy'
+    var taxa = 10
+
+    function desenhaCirculo(x, y, raio,cor) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function limpaTela() {
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function atualizaTela() {
+        limpaTela();
+        desenhaCirculo(x, y, r, cor);
+    }
+
+    function leDoTeclado(evento) {
+        if (evento.keyCode==up&&(y-taxa)>0){
+            y = y - taxa;
+        return false
+        }
+        if (evento.keyCode==dw&&(y+taxa)<400){
+            y = y + taxa;
+        return false
+        }
+        if (evento.keyCode==le&&(x-taxa)>0){
+            x = x - taxa;
+        return false
+        }
+        if (evento.keyCode==ri&&(x+taxa)<600){
+            x = x + taxa;
+        return false
+        }
+    }
+
+    document.onkeydown = leDoTeclado;
+
+    var le = 37;
+    var up = 38;
+    var ri = 39;
+    var dw = 40;
+
+    setInterval(atualizaTela, 20);
+
+</script>
